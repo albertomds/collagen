@@ -1,0 +1,91 @@
+lonepairs on
+CUDASOAintegrate off
+
+structure		   ../../../Xlinked_models/Xlink_3Br_new_xplor.psf 
+coordinates		 ../../../Xlinked_models/Xlink_3Br_new.pdb
+
+set temperature    300  ;# target temperature used several times below
+set outputname     min   ;# base name for output from this run
+set run		 500000;# 500000 * 2(fs) = 1000000 fs = 1 ns
+set min	 1000; # 5000
+temperature        $temperature;  # initial temperature
+
+#SIMULATION PARAMETERS
+
+firsttimestep       0
+
+set freq	 1000 ;# 1000
+restartfreq         $freq     ;# 500 steps = every 1ps
+dcdfreq             $freq
+xstFreq             $freq
+
+outputName          $outputname
+outputEnergies      $freq     
+
+# Force-Field Parameters
+paraTypeCharmm	    on
+# parameters          par_all36_prot_carb_lipid.prm
+# parameters          toppar_water_ions.mod.str
+# parameters          toppar_all36_carb_glycopeptide.str
+parameters ../../../FF/toppar_c36_jul22/toppar/par_all36m_prot.prm
+mergeCrossterms yes
+parameters ../../../FF/toppar_c36_jul22/toppar/par_all36_carb.prm
+parameters ../../../FF/toppar_c36_jul22/toppar/par_all36_lipid.prm
+parameters ../../../FF/toppar_c36_jul22/toppar/par_all36_na.prm
+parameters ../../../FF/toppar_c36_jul22/toppar/par_all36_cgenff.prm
+parameters ../../../FF/toppar_c36_jul22/toppar/stream/prot/toppar_all36_prot_modify_res.str
+parameters ../../../FF/toppar_c36_jul22/toppar/toppar_water_ions.str
+parameters ../../../FF/Xlink.prm
+
+# These are specified by CHARMM
+exclude             scaled1-4
+1-4scaling          1.0
+switching           on
+
+# You have some freedom choosing the cutoff
+cutoff              12. ;# may use smaller, maybe 10., with PME
+switchdist          10. ;# cutoff - 2.
+
+# Promise that atom won't move more than 2A in a cycle
+pairlistdist        14. ;# cutoff + 2.
+# stepspercycle is the number of cycles after which namd will 
+# update the pairlistdist  
+stepspercycle       20
+
+# Integrator Parameters
+timestep            2.0  ;# 2fs/step
+rigidBonds          all  ;# needed for 2fs steps
+nonbondedFreq       1    ;# nonbonded forces every step
+fullElectFrequency  2    ;# PME only every other step
+pairlistsperCycle   2
+
+# Constant Temperature Control
+langevin            on            ;# langevin dynamics
+langevinDamping     1.            ;# damping coefficient of 1/ps
+langevinTemp        $temperature  ;# random noise at this level
+langevinHydrogen    no            ;# don't couple bath to hydrogens
+
+# Periodic Boundary conditions
+cellBasisVector1 127.4260025024414 0 0
+cellBasisVector2 0 98.00799942016602 0
+cellBasisVector3 0 0 101.06900024414063
+cellOrigin -1.5750619173049927 1.191295862197876 1.1035327911376953
+
+wrapWater           on              ;# wrap water to central cell
+wrapAll             on              ;# wrap other molecules too
+# wrapNearest         off             ;# use for non-rectangular cells
+
+# Pressure control
+langevinPiston        on
+langevinPistonTarget  1.01325      ;# pressure in bar -> 1 atm
+langevinPistonPeriod  100.         ;# oscillation period around 100 fs
+langevinPistonDecay   50.          ;# oscillation decay time of 50 fs
+langevinPistonTemp    $temperature ;# coupled to heat bath
+useGroupPressure      yes ;# needed for rigidBonds
+useFlexibleCell       no
+useConstantArea       no
+
+# Run
+minimize	$min          ;# run $min steps of minimization
+reinitvels  	$temperature  ;# reinitiate velocities according to the desired temperature
+#run 		$run          ;# run dynamics
