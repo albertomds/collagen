@@ -1,0 +1,45 @@
+HETATM    1  N   TYP B  10      -1.569  19.305  -4.502  1.00  0.00           N
+HETATM    2  HN  TYP B  10      -2.484  19.512  -4.840  1.00  0.00           H
+HETATM    3  CA  TYP B  10      -0.598  18.637  -5.319  1.00  0.00           C
+HETATM    4  HA  TYP B  10      -0.167  17.908  -4.649  1.00  0.00           H
+HETATM    5  CB  TYP B  10      -1.224  17.804  -6.435  1.00  0.00           C
+HETATM    6  HB1 TYP B  10      -0.478  17.079  -6.827  1.00  0.00           H
+HETATM    7  HB2 TYP B  10      -1.542  18.420  -7.303  1.00  0.00           H
+HETATM    8  CG  TYP B  10      -2.429  16.920  -5.983  1.00  0.00           C
+HETATM    9  CD1 TYP B  10      -3.689  17.518  -6.020  1.00  0.00           C
+HETATM   10  HD1 TYP B  10      -3.735  18.520  -6.418  1.00  0.00           H
+HETATM   11  CE1 TYP B  10      -4.780  16.779  -5.486  1.00  0.00           C
+HETATM   12  CZ  TYP B  10      -4.626  15.480  -5.021  1.00  0.00           C
+HETATM   13  OH  TYP B  10      -5.609  14.777  -4.555  1.00  0.00           O
+HETATM   14  CD2 TYP B  10      -2.227  15.652  -5.419  1.00  0.00           C
+HETATM   15  HD2 TYP B  10      -1.212  15.282  -5.393  1.00  0.00           H
+HETATM   16  CE2 TYP B  10      -3.304  14.963  -5.001  1.00  0.00           C
+HETATM   17  HE2 TYP B  10      -3.060  14.016  -4.542  1.00  0.00           H
+HETATM   18  C   TYP B  10       0.574  19.490  -5.906  1.00  0.00           C
+HETATM   19  O   TYP B  10       0.196  20.620  -6.230  1.00  0.00           O
+HETATM   20  HH  TYP B  10      -6.497  15.140  -4.546  1.00  0.00           H
+HETATM   21  HX1 TYP B  10      -5.637  17.185  -5.446  1.00  0.00           H
+HETATM   22  HC  TYP B  10       1.588  19.135  -6.015  1.00  0.00           H
+CONECT   18    3   19   22
+CONECT    3    4    1    5   18
+CONECT    5    7    8    3    6
+CONECT    9   10   11    8
+CONECT   14   15   16    8
+CONECT   11   12    9   21
+CONECT   16   12   14   17
+CONECT    8   14    9    5
+CONECT   12   13   11   16
+CONECT    4    3
+CONECT    6    5
+CONECT    7    5
+CONECT   22   18
+CONECT   10    9
+CONECT   15   14
+CONECT   17   16
+CONECT   20   13
+CONECT    2    1
+CONECT   21   11
+CONECT    1    2    3
+CONECT   19   18
+CONECT   13   12   20
+END
